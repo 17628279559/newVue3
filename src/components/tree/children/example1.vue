@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div id="p5Canvas"></div>
   </div>
 </template>
 
@@ -8,25 +7,25 @@
 import P5 from 'p5'
 
 export default {
-  data() {
+  data () {
     return {
-      p5Canvas: null
+      p5Canvas1: null
     }
   },
-  created() {
+  created () {
     const sketch = (p5) => {
       let PI = 3.1415926
       let maxLevel = 12
       let langle, rangle, len
-      let w = 1000
+      let w = 800
       let h = 600
 
       // let w = window.innerWidth;
       // let h = window.innerHeight;
 
       p5.setup = () => {
-        let myCanvas = p5.createCanvas(w, h)
-        myCanvas.parent('p5Canvas')
+        let myCanvas1 = p5.createCanvas(w, h)
+        myCanvas1.parent('p5Canvas1')
         p5.noLoop()
       }
 
@@ -60,25 +59,16 @@ export default {
       }
     }
 
-    this.p5Canvas = new P5(sketch, 'p5Canvas')
+    this.p5Canvas1 = new P5(sketch, 'p5Canvas1')
   },
-  unmounted() {
-    this.p5Canvas = null
+  unmounted () {
+    this.p5Canvas1 = null
   }
 }
 </script>
 
-<style>
-#p5Canvas {
-  width: 100vw;
-  position: relative;
-}
+<style scoped>
 canvas {
   margin: auto;
-}
-
-main {
-  margin: 0 auto;
-  width: 90vw;
 }
 </style>

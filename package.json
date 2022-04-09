@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^2.1.8",
     "p5": "^1.4.1",
     "vue": "^3.2.25"
   },
