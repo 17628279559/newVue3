@@ -24,7 +24,7 @@ let pie = (id, svgRef, data, options) => {
         chart_height: 550,
         text_anchor: "middle",
         pad_angle: 0,
-        introduce_backguound_color: '#8EC5FC',
+        introduce_backguound_color: 'rgba(50,50,50,0.15)',
         is_rotate: false,
         stroke_width: 0,
         stroke: '#fff',
@@ -43,7 +43,7 @@ let pie = (id, svgRef, data, options) => {
     };
 
     // 更新settings
-    for (parameter in options)
+    for (let parameter in options)
         settings[parameter] = options[parameter];
 
 
@@ -140,7 +140,7 @@ let pie = (id, svgRef, data, options) => {
         d3.select(`#_${id}_introduce${index.data.index}`)
             .transition()
             .duration(50)
-            .style('fill', '#f5f5f5');
+            .style('fill', 'rgba(20,20,20,0.2)');
     };
 
     const introduce_rect_fillcolor = (item, index) => {
@@ -216,7 +216,7 @@ let pie = (id, svgRef, data, options) => {
             .attr('width', 100)
             .attr('height', 510 / 12)
             .attr('transform', item => `translate(${(item.index % 4) * 100},${scale(Math.floor(item.index / 4))})`)
-            .style('fill', '#f5f5f5')
+            .style('fill', 'rgba(20,20,20,0.2)')
             .on('mouseover', over)
             .on('mouseout', out);
 
@@ -245,6 +245,7 @@ let pie = (id, svgRef, data, options) => {
             .on('mouseover', over)
             .on('mouseout', out);
     }
+    svg.selectAll('text').attr('fill', '#F5F5F5')
 };
 
 export default pie;

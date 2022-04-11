@@ -6,6 +6,8 @@ import './assets/css/vendor/jquery.mmenu.all.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+import $ from 'jquery'
+
 const app = createApp(App)
 app.config.globalProperties.$usefake = false
 app.use(ElementPlus)
