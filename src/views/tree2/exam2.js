@@ -1,5 +1,5 @@
 const exam2 = (p5) => {
-    let w = 800,
+    let w = 1000,
         h = 600
     let slider_size,
         slider_level,

@@ -2,7 +2,7 @@ const exam1 = (p5) => {
     let PI = 3.1415926
     let maxLevel = 12
     let langle, rangle, len
-    let w = 800
+    let w = 1000
     let h = 600
 
     p5.setup = () => {

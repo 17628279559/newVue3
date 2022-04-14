@@ -1,5 +1,5 @@
 
-const wordtree = p5 => {
+const exam3 = p5 => {
   let button_seed, lo = true;
   let PI = 3.1415926;
   let maxLevel = 12;
@@ -73,4 +73,4 @@ const wordtree = p5 => {
   }
 }
 
-export default wordtree;
+export default exam3;
