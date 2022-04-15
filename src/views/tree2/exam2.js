@@ -1,6 +1,6 @@
 const exam2 = (p5) => {
     let w = 1000,
-        h = 600
+        h = 540
     let slider_size,
         slider_level,
         slider_rot,

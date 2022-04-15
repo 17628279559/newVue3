@@ -3,7 +3,7 @@ const exam1 = (p5) => {
     let maxLevel = 12
     let langle, rangle, len
     let w = 1000
-    let h = 600
+    let h = 540
 
     p5.setup = () => {
         let myCanvas1 = p5.createCanvas(w, h)
@@ -12,10 +12,10 @@ const exam1 = (p5) => {
     }
 
     p5.draw = () => {
-        p5.background(0, 0, 0, 30)
+        p5.background(0, 0, 0, 0)
         langle = PI / 5
         rangle = PI / 5
-        len = 200
+        len = 180
         p5.stroke(255)
         p5.translate(w / 2, h)
         p5.scale(1, -1)

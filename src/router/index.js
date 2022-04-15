@@ -31,6 +31,11 @@ const routes = [
         name: 'pie',
         component: () => import('../views/pie/pie.vue')
     },
+    {
+        path: '/wordCloud',
+        name: 'wordCloud',
+        component: () => import('../views/wordCloud/wordCloud.vue')
+    }
 ];
 
 const router = createRouter({

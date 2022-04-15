@@ -21,7 +21,7 @@ let pie = (id, svgRef, data, options) => {
         chart_height: 550,
         show_lable_text: true,
         raised: 20,
-        chart_height: 550,
+        chart_height: 540,
         text_anchor: "middle",
         pad_angle: 0,
         introduce_backguound_color: 'rgba(50,50,50,0.15)',
@@ -196,12 +196,6 @@ let pie = (id, svgRef, data, options) => {
             .attr('font-size', settings.lable_text_size)
             .attr('text-anchor', settings.text_anchor)
             .attr('fill', 'rgb(90,90,90)');
-
-        donut.append('text')
-            .text(settings.title)
-            .attr('transform', `translate(0,${settings.radius_label + 25})`)
-            .attr('font-size', `1.3em`)
-            .attr('text-anchor', 'middle');
 
         scale = d3.scaleLinear()
             .domain([0, 12])

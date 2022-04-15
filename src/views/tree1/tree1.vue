@@ -10,9 +10,14 @@ onMounted(() => {
 
 
 <template>
-  <div>
-    <div id="p5Canvas1"></div>
-  </div>
+  <header-box section_class="tile color transparent-white">
+    <template v-slot:title>
+      <h1>我只是一颗普普通通的树<a style="color:#FFF" href="https://p5js.org/reference/" target="_blank"><strong>(p5.js)</strong></a></h1>
+    </template>
+    <template v-slot:content>
+      <div id="p5Canvas1"></div>
+    </template>
+  </header-box>
 </template>
 
 <style scoped>

@@ -2,9 +2,9 @@ import * as d3 from 'd3'
 
 
 let settings = {
-  margin: { top: 50, left: 50, bottom: 100, right: 50 },
+  margin: { top: 50, left: 50, bottom: 80, right: 50 },
   width: 1300,
-  height: 600,
+  height: 500,
   xAxisLabel: 'x轴',
   yAxisLabel: 'y轴',
   colors: d3.scaleLinear().domain([0, 15]).range(['#FF0000', '#6284FF'])
@@ -94,13 +94,6 @@ const his = (id, svgRef1, res_data, options, update = false) => {
       .attr('text-anchor', 'start')
       .attr('transform', 'rotate(30 -10 10)');
     // 添加x轴信息
-    canvas
-      .append('text')
-      .attr('font-size', '2em')
-      .attr('y', 0)
-      .attr('x', innerwidth / 2)
-      .text(settings.xAxisLabel)
-      .attr('text-anchor', 'middle');
 
 
     // 使用比例尺画y轴

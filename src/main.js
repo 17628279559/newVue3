@@ -15,6 +15,7 @@ import $ from 'jquery'
 const app = createApp(App)
 app.config.globalProperties.$usefake = ref(false)
 app.config.globalProperties.$piesetting = reactive({ showall: false, showhis: false })
+app.config.globalProperties.$wordCloudPython = reactive({show:false})
 app.component('prompt', prompt)
 app.component('header-box', headerbox)
 app.use(router)
