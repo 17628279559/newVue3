@@ -307,7 +307,7 @@ onMounted(() => {
       </header-box>
       <header-box section_class="tile color transparent-white">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="https://echarts.apache.org/" target="_blank"><strong>Echarts</strong></a>的k线图</h1>
+          <h1>使用<a style="color:#FFF" href="https://echarts.apache.org/" target="_blank"><strong>Echarts</strong></a>的k线图(福田汽车)</h1>
         </template>
         <template v-slot:content>
           <echart-example2></echart-example2>
