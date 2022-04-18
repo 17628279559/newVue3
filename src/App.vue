@@ -280,6 +280,11 @@ const sidebar_list_setting = [
 </template>
 
 <style>
+@import './assets/font/font.css';
+
+a {
+  color: #fff;
+}
 .main-comtent {
   height: 2000px;
 }

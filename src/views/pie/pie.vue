@@ -81,8 +81,8 @@ onMounted(() => {
 <template>
   <header-box section_class="tile color transparent-white">
     <template v-slot:title>
-      <h1 v-show="!proxy.$piesetting.showall"><a style="color:#FFF" href="http://news.163.com/special/epidemic/" target="_blank">{{pie1.title}}</a></h1>
-      <h1 v-show="proxy.$piesetting.showall"><a style="color:#FFF" href="http://news.163.com/special/epidemic/" target="_blank">{{pie2.title}}</a></h1>
+      <h1 v-show="!proxy.$piesetting.showall"><a href="http://news.163.com/special/epidemic/" target="_blank">{{pie1.title}}</a></h1>
+      <h1 v-show="proxy.$piesetting.showall"><a href="http://news.163.com/special/epidemic/" target="_blank">{{pie2.title}}</a></h1>
     </template>
     <template v-slot:content>
       <svg v-show="!proxy.$piesetting.showall && !proxy.$piesetting.showhis" class="center" width="1250" height="540" ref="svgRef1" style="background-color: rgba(255, 255, 255, 0);">
@@ -98,4 +98,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
+a {
+  color: #fff;
+}
 </style>

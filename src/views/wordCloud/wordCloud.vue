@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref, getCurrentInstance } from 'vue'
-import { Check, PictureFilled, EditPen } from '@element-plus/icons-vue'
+import { Check, PictureFilled, EditPen, MostlyCloudy } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import * as d3 from 'd3';
 import cloud from 'd3-cloud'
 import Axios from 'axios'
@@ -8,20 +9,18 @@ import Axios from 'axios'
 const { proxy } = getCurrentInstance() //以proxy形式获取全局变量
 const layout = cloud() //d3.layout.cloud.js
 
-
+const sleep = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 //数据区域
-let jieba_cut_word_List = [ //默认的，后面用api内容替换
-  { text: 'vue', size: 20 },
-  { text: 'html', size: 25 },
-  { text: 'js', size: 30 },
-]
 
-const python_background_img_list = [  //python词云的背景图
+const python_background_img_list = [  //python词云的背景图选择项
   { id: 0, url: "/src/assets/images/words_back/loving_heart.jpg", true_name: "loving_heart.jpg", name: "爱心" },
   { id: 1, url: "/src/assets/images/words_back/winnie_the_pooh.jpg", true_name: "winnie_the_pooh.jpg", name: "小熊维尼" },
   { id: 2, url: "/src/assets/images/words_back/apple.png", true_name: "apple.png", name: "苹果logo" },
+  { id: 3, url: "/src/assets/images/words_back/girl.png", true_name: "girl.png", name: "追兔子的女孩" },
 ]
-const python_background_font_list = [ //python词云的字体
+const python_background_font_list = [ //python词云的字体选择项
   { id: 0, url: "/src/assets/images/fontimg/dnxdcbz.png", true_name: "dnxdcbz.ttf", name: "对你心动藏不住" },
   { id: 1, url: "/src/assets/images/fontimg/fzgsdxhh.png", true_name: "fzgsdxhh.ttf", name: "方正故事的小黄花" },
   { id: 2, url: "/src/assets/images/fontimg/nswddrnc.png", true_name: "nswddrnc.ttf", name: "你是我的冬日奶茶" },
@@ -38,8 +37,11 @@ const python_alert1_title = ref("") //检查输入框是否满足字数要求的
 const python_alert1_makeSure = ref("") //检查输入框是否满足字数要求的弹窗  的确认按钮文字内容
 const send_massage_to_python_message1 = ref("") //点击确认的弹窗 的背景确认的文字内容
 const send_massage_to_python_message2 = ref("") //点击确认的弹窗 的字体确认的文字内容
+const send_massage_to_python_message3 = ref("") //点击确认的弹窗 的字体确认的文字内容
 const python_selected_background_img = ref(0) //选择的背景图的index（对应上方python_background_img_list）
 const python_selected_background_font = ref(0) //选择的字体样式的index（对应上方python_background_font_list）
+const python_is_transparent = ref("False")
+const python_background_color = ref("#FFFFFF")
 const image_is_null = ref(true)  // 图片是否为空（是否生成图片）
 const python_alert1_show = ref(false)  //检查输入框是否满足字数要求的弹窗 是否显示
 const python_alert2_show = ref(false)  //选择背景图片的弹窗 是否显示
@@ -54,18 +56,19 @@ const draw = (words) => {  //画词云图函数
     .append("svg")
     .attr("width", layout.size()[0])
     .attr("height", layout.size()[1])
+    .style("background-color", "#FFFFFF")
     .append("g")
-    .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+    .attr("transform", `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
     .selectAll("text")
     .data(words)
     .enter().append("text")
-    .style("font-size", function (d) { return d.size + "px"; })
-    .style("font-family", "Impact")
+    .style("font-size", (item) => item.size + "px")
+    .style("font-family", "dnxdcbz")
     .style("cursor", "pointer")
-    .style("fill", function (d, i) { return word_cloud_color(i); })
+    .style("fill", (item, index) => word_cloud_color(index))
     .attr("text-anchor", "middle")
-    .attr("transform", function (d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
-    .text(function (d) { return d.text; })
+    .attr("transform", item => `translate(${item.x},${item.y}) rotate(${item.rotate})`)
+    .text(item => item.text)
     .on("mouseover", (index, item) => {
       d3.select(index.target)
         .transition()
@@ -94,6 +97,7 @@ const send_massage_to_python_and_get_img_url = () => {  //提交信息到服务�
   data.append('text', python_input_textarea.value)
   data.append('background_img', python_background_img_list[python_selected_background_img.value].true_name)
   data.append('font_style', python_background_font_list[python_selected_background_font.value].true_name)
+  data.append('is_transparent', python_is_transparent.value)
   Axios.post(get_python_jieba_cut_word_List_api, data).then((response) => {
     image_is_null.value = false
     $(python_image_element.value).attr('src', response.data.name)
@@ -119,6 +123,7 @@ const send_massage_to_python_check = () => { //确认选择的按钮的点击事
   python_alert4_show.value = true
   send_massage_to_python_message1.value = `当前背景图片：${python_background_img_list[python_selected_background_img.value].name}`
   send_massage_to_python_message2.value = `当前字体样式：${python_background_font_list[python_selected_background_font.value].name}`
+  send_massage_to_python_message3.value = `当前背景颜色：${python_is_transparent.value == "True" ? "透明" : "白色"}`
 }
 const select_back_img_make_sure = () => {  //切换图片按钮的确认事件
   python_alert2_show.value = false
@@ -136,17 +141,36 @@ const select_back_font_make_sure = () => {  //切换字体按钮的确认事件
     }
   }
 }
+const switch_background = () => {
+  if (python_is_transparent.value == "False") {
+    python_is_transparent.value = "True"
+    python_background_color.value = "rgba(0,0,0,0)"
+    ElMessage({
+      message: '现在会生成透明背景哦！'
+    })
+  }
+  else {
+    python_is_transparent.value = "False"
+    python_background_color.value = "#FFFFFF"
+    ElMessage({
+      message: '现在会生成白色背景哦！',
+      type: 'success',
+    })
+  }
+}
 //生命周期函数
 onMounted(() => {
   Axios.get(get_jieba_cut_word_List_api).then((response) => {
-    jieba_cut_word_List = response.data
+    let jieba_cut_word_List = response.data
     layout
       .size([1000, 540])
-      .words(jieba_cut_word_List)
+      .words(jieba_cut_word_List.map(item => {
+        return { text: item.text, size: item.size * 1.8 }
+      }))
       .padding(5)
-      .rotate(function () { return ~~(Math.random() * 3) * 30; })
+      .rotate(() => ~~(Math.random() * 3) * 30)
       .font("Impact")
-      .fontSize(function (d) { return d.size; })
+      .fontSize((item) => item.size)
       .on("end", draw)
     layout.start()
   })
@@ -156,7 +180,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <header-box :style="{'display':!proxy.$wordCloudPython.show ? 'block':'none'}" section_class="tile color transparent-black">
+    <header-box v-show="!proxy.$wordCloudPython.show" section_class="tile color transparent-black">
       <template v-slot:title>
         <h1><a href="http://www.93.gov.cn/bsjs-ldcy-zxfzx-cbfzx-wdjh/768551.html" target="_blank"><strong>全国人大十三届五次全会精神文稿</strong></a>词云图</h1>
       </template>
@@ -164,13 +188,14 @@ onMounted(() => {
         <div ref="d3_svg_element"></div>
       </template>
     </header-box>
-    <header-box :style="{'display':proxy.$wordCloudPython.show ? 'block':'none'}" section_class="tile color transparent-black">
+    <header-box v-show="proxy.$wordCloudPython.show" section_class="tile color transparent-black">
       <template v-slot:title>
-        <h1>基于python的<a href="https://github.com/amueller/word_cloud" target="_blank"><strong>wordCloud</strong></a>的词云图</h1>
+        <h1>基于python的<a href="http://amueller.github.io/word_cloud/references.html" target="_blank"><strong>wordCloud</strong></a>的词云图</h1>
       </template>
       <template v-slot:content>
-        <el-input style="width:1200px;margin:20px" v-model="python_input_textarea" :autosize="{ minRows: 3, maxRows: 999 }" type="textarea" placeholder="请输入你想进行词云生成的文字（字数越多越好，建议400字以上,英文的话加空格才算一个单词哦）" />
+        <el-input style="width:1200px;margin:20px" v-model="python_input_textarea" :autosize="{ minRows: 3, maxRows: 999 }" type="textarea" placeholder="请输入你想进行词云生成的一段文字文字（建议400字以上）,可以点击云生成透明的背景，点完之后图标会变透明，但是它还在编辑字体样式旁边" />
         <div style="display:flex;justify-content:flex-end;margin:0px 30px">
+          <el-button :color="python_background_color" size="large" :icon="MostlyCloudy" circle @click="switch_background" />
           <el-button type="primary" size="large" :icon="EditPen" circle @click="python_alert3_show = true" />
           <el-button type="primary" size="large" :icon="PictureFilled" circle @click="python_alert2_show = true" />
           <el-button type="success" size="large" :icon="Check" circle @click="send_massage_to_python_check" />
@@ -218,6 +243,7 @@ onMounted(() => {
     <el-dialog v-model="python_alert4_show" title="确定好了吗？" width="30%">
       <div>{{send_massage_to_python_message1}}</div>
       <div>{{send_massage_to_python_message2}}</div>
+      <div>{{send_massage_to_python_message3}}</div>
       <template #footer>
         <span class="dialog-footer">
           <el-button type="primary" @click="submit">确定</el-button>

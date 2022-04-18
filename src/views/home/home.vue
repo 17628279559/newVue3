@@ -246,7 +246,7 @@ onMounted(() => {
     <div class="col-md-6">
       <header-box section_class="tile color transparent-black">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="http://rendro.github.io/easy-pie-chart/" target="_blank"><strong>EasyPie</strong></a>的仪表盘</h1>
+          <h1>使用<a href="http://rendro.github.io/easy-pie-chart/" target="_blank"><strong>EasyPie</strong></a>的仪表盘</h1>
         </template>
         <template v-slot:content>
           <div class="easypiechart inline easypiee" v-for="(item,p_index) in easypie_item_list" :key="p_index">
@@ -259,7 +259,7 @@ onMounted(() => {
     <div class="col-md-6">
       <header-box section_class="tile color transparent-white">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="https://github.com/toorshia/justgage" target="_blank"><strong>JustGage</strong></a>的仪表盘</h1>
+          <h1>使用<a href="https://github.com/toorshia/justgage" target="_blank"><strong>JustGage</strong></a>的仪表盘</h1>
         </template>
         <template v-slot:content>
           <div v-for="(id,j_index) in justgage_id_list" :key="j_index" class="inline-block justgage-box" :id="id"></div>
@@ -269,12 +269,12 @@ onMounted(() => {
     <div class="col-md-12">
       <header-box section_class="tile color transparent-black">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="https://morrisjs.github.io/morris.js/" target="_blank"><strong>Morris</strong></a>的中日韩数据对比图</h1>
+          <h1>使用<a href="https://morrisjs.github.io/morris.js/" target="_blank"><strong>Morris</strong></a>的中日韩数据对比图</h1>
         </template>
         <template v-slot:content>
           <div class="row">
             <div class="col-md-6" v-for="(item,m_index) in morris_item_list" :key="m_index">
-              <h3><a style="color:#FFF" :href="item.url" target="_blank">{{item.content}}</a></h3>
+              <h3><a :href="item.url" target="_blank">{{item.content}}</a></h3>
               <div :id="item.id" class="morris-chart" style="height: 250px;"></div>
               <ul v-if="item.id === 'morris-donut-example'" class="inline text-center chart-legend">
                 <li><span class="badge badge-outline" style="border-color: #d9544f"></span> 中国总人口 <small>18.18%</small></li>
@@ -287,7 +287,7 @@ onMounted(() => {
       </header-box>
       <header-box section_class="tile color transparent-white">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="https://omnipotent.net/jquery.sparkline/#s-docs" target="_blank"><strong>Sparkline</strong></a>的各种图表</h1>
+          <h1>使用<a href="https://omnipotent.net/jquery.sparkline/#s-docs" target="_blank"><strong>Sparkline</strong></a>的各种图表</h1>
         </template>
         <template v-slot:content>
           <div class="row">
@@ -299,7 +299,7 @@ onMounted(() => {
       </header-box>
       <header-box section_class="tile color transparent-black">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="https://echarts.apache.org/" target="_blank"><strong>Echarts</strong></a>的饼图(搬移的)</h1>
+          <h1>使用<a href="https://echarts.apache.org/" target="_blank"><strong>Echarts</strong></a>的饼图(搬移的)</h1>
         </template>
         <template v-slot:content>
           <echart-example1></echart-example1>
@@ -307,7 +307,7 @@ onMounted(() => {
       </header-box>
       <header-box section_class="tile color transparent-white">
         <template v-slot:title>
-          <h1>使用<a style="color:#FFF" href="https://echarts.apache.org/" target="_blank"><strong>Echarts</strong></a>的k线图(福田汽车)</h1>
+          <h1>使用<a href="https://echarts.apache.org/" target="_blank"><strong>Echarts</strong></a>的k线图(福田汽车)</h1>
         </template>
         <template v-slot:content>
           <echart-example2></echart-example2>
@@ -319,6 +319,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+a {
+  color: #fff;
+}
 .easypiee {
   width: 110px;
   height: 142px;

@@ -73,18 +73,24 @@ def getcovie():
 
 @app.route('/getwords', methods=['GET'])
 def getwords():
-    resault = list(np.load("./result.npy",allow_pickle=True))
+    resault = list(np.load("./re.npy",allow_pickle=True))
     return jsonify(resault)
 
 @app.route('/getpythonwords', methods=['POST'])
 def getpythonwords():
     text = request.form.get('text')
+    is_transparent = request.form.get('is_transparent')
+    mode = "RGB"
+    background_color = 'white'
+    if is_transparent == "True":
+        mode = "RGBA"
+        background_color = "rgba(0,0,0,0)"
     background_img = request.form.get('background_img')
     font_style = request.form.get('font_style')
     cut = jieba.cut(text,cut_all=False,HMM=True)
     object_list = []
     stopwords = ['', '就', '月', '，','二是','三是','四是', '为', '》', '人', '均', '《', '：', '将', '右', '系', '们', '并', '。', '新', '也', '）', '学', '对', '一是', '的', '要', '和', '一', '10', '届', '应', '”', '由', '作', ' 间', '“', '以', ' ', '是', '等', '树', '有', '日', '\n', '及', '（', '主', '大', '与', '左', '、', '在', '\\xa0', '项', '型', '；', '年', '给', '下', 
-'到', '了', '非', '震', '副', '于','向','各','好','五是']
+'到', '了', '非', '震', '副', '于','向','各','好','五是','把',"件","六是"]
     stopwords.append('\n')
     #如果单词不在停用词里，则添加
     for word in cut:
@@ -92,27 +98,35 @@ def getpythonwords():
             object_list.append(word)
     #collections.Counter 计数器，统计单词个数
     word_counts = collections.Counter(object_list)
+    
+    # sss = [{"text":item,"size":word_counts[item]} for item in word_counts if word_counts[item] > 5]
+    # np.save("re.npy",list(sss))
     img = Image.open('./static/background_img/{}'.format(background_img))
     img_array = np.array(img)  #将图片变为数组
     wc = WordCloud(
-        background_color = 'white', # 背景颜色
+        background_color = background_color, # 背景颜色
+        width = 800,
+        mode = mode,
+        height = 800,
         mask = img_array,  #遮罩图片
         font_path = './static/font_style/{}'.format(font_style),  #字体样式
         colormap='tab20c'
     )
+    print(mode,background_color)
     wc.generate_from_frequencies(word_counts)  #生成词云图
-    fig = plt.figure(1)
-    plt.imshow(wc)  # 显示词云
-    plt.axis('off') # 关闭保存
+    pic_name = './img/'+str(time.time())+'_demo.png'
+    wc.to_file(pic_name)
+    # fig = plt.figure(1)
+    # plt.imshow(wc)  # 显示词云
+    # plt.axis('off') # 关闭保存
     #plt.show()
     #调整边框
-    plt.subplots_adjust(top=0.99, bottom=0.01, right=0.99, left=0.01, hspace=0, wspace=0)
+    # plt.subplots_adjust(top=0.99, bottom=0.01, right=0.99, left=0.01, hspace=0, wspace=0)
     #保存图片
     # plt.savefig(r'./static/'+str(time.time())+'_demo.jpg',dpi = 600)
     # result = {'name':'/api/static/'+str(time.time())+'_demo.jpg'}
     # return result 
-    pic_name = './img/'+str(time.time())+'_demo.jpg'
-    plt.savefig(pic_name,dpi = 600)
+    # plt.savefig(pic_name,dpi = 800)
     result = {'name':"/static_api"+pic_name[1:]}
     return result
 

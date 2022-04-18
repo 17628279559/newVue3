@@ -50,7 +50,7 @@ onMounted(() => {
 <template>
   <header-box section_class="tile color transparent-white">
     <template v-slot:title>
-      <h1><a style="color:#FFF" href="https://music.163.com/discover/toplist" target="_blank"><strong>网易云实时飙升榜榜单</strong></a></h1>
+      <h1><a href="https://music.163.com/discover/toplist" target="_blank"><strong>网易云实时飙升榜榜单</strong></a></h1>
     </template>
     <template v-slot:content>
       <svg class="center" :width="his_width" :height="his_height" ref="svgRef1" style="background-color: rgba(0, 0, 0, 0);"></svg>
@@ -58,4 +58,8 @@ onMounted(() => {
   </header-box>
 </template>
 
-<style scoped></style>
+<style scoped>
+a {
+  color: #fff;
+}
+</style>
