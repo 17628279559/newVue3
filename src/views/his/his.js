@@ -129,6 +129,7 @@ const his = (id, svgRef1, res_data, options, update = false) => {
           .attr('fill-opacity', 0.5)
         $('#his_message').css({ display: 'block' })
         $('#music_title').text(index.name)
+        console.log(item,index)
         if (index.pubdate) {
           $('#music_com').text(`评论数: ${index.value}`)
           $('#music_pubdate').text(`发布时间:${index.pubdate}`)
