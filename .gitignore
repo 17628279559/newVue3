@@ -3,6 +3,7 @@ font/
 font_style/
 node_modules/
 dist/
+Local/
 pythonImg/
 
 config.py
