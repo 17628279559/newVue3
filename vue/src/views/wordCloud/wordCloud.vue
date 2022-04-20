@@ -29,9 +29,13 @@ const python_background_font_list = [ //python词云的字体选择项
   { id: 5, url: "/src/assets/images/fontimg/ppttwryh.png", true_name: "ppttwryh.ttf", name: "普普通通微软雅黑" },
 ]
 
+let ratios = 1.8
 const d3_svg_element = ref(null) //d3词云图的DOM元素
 const python_image_element = ref(null) //python词云图image的DOM元素
+const changeUrl = ref("http://www.93.gov.cn/bsjs-ldcy-zxfzx-cbfzx-wdjh/768551.html")
+const changeText = ref("全国人大十三届五次全会精神文稿")
 const python_input_textarea = ref("") //python词云图输入的文本框内容
+const html_input_textarea = ref("")
 const python_alert1_text = ref("")  //检查输入框是否满足字数要求的弹窗  的中间文字内容
 const python_alert1_title = ref("") //检查输入框是否满足字数要求的弹窗  的题目文字内容
 const python_alert1_makeSure = ref("") //检查输入框是否满足字数要求的弹窗  的确认按钮文字内容
@@ -56,6 +60,7 @@ const draw = (words) => {  //画词云图函数
     .append("svg")
     .attr("width", layout.size()[0])
     .attr("height", layout.size()[1])
+    .attr("id", "cloudWordSvg")
     .style("background-color", "#FFFFFF")
     .append("g")
     .attr("transform", `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
@@ -63,7 +68,7 @@ const draw = (words) => {  //画词云图函数
     .data(words)
     .enter().append("text")
     .style("font-size", (item) => item.size + "px")
-    .style("font-family", "dnxdcbz")
+    .style("font-family", "impact")
     .style("cursor", "pointer")
     .style("fill", (item, index) => word_cloud_color(index))
     .attr("text-anchor", "middle")
@@ -107,19 +112,42 @@ const send_massage_to_python_and_get_img_url = () => {  //提交信息到服务�
 }
 const submit = () => {  //检查字数是否满足要求
   python_alert4_show.value = false
-  if (python_input_textarea.value.length < 20) {
-    change_python_alert1("(╬◣д◢)", `${python_input_textarea.value.length}个字，来搞笑吗，还想生成词云图`, "我错了")
-  }
-  else if (python_input_textarea.value.length < 100) {
-    change_python_alert1("￣へ￣", `才${python_input_textarea.value.length}个字，这么点字够谁用？让隔壁计科看见还以为我们没文化呢,给我写够200字`, "好的好的我再写点")
-  }
-  else if (python_input_textarea.value.length < 200) {
-    change_python_alert1("〒▽〒", `${python_input_textarea.value.length}个字啦，加油加油，再写点`, "没问题")
-  } else {
+  if (python_input_textarea.value.slice(0, 4) == "http") {
     send_massage_to_python_and_get_img_url()
   }
+  else {
+    if (python_input_textarea.value.length < 20) {
+      change_python_alert1("(╬◣д◢)", `${python_input_textarea.value.length}个字，来搞笑吗，还想生成词云图`, "我错了")
+    }
+    else if (python_input_textarea.value.length < 100) {
+      change_python_alert1("￣へ￣", `才${python_input_textarea.value.length}个字，这么点字够谁用？让隔壁计科看见还以为我们没文化呢,给我写够200字`, "好的好的我再写点")
+    }
+    else if (python_input_textarea.value.length < 200) {
+      change_python_alert1("〒▽〒", `${python_input_textarea.value.length}个字啦，加油加油，再写点`, "没问题")
+    } else {
+      send_massage_to_python_and_get_img_url()
+    }
+  }
+
 }
-const send_massage_to_python_check = () => { //确认选择的按钮的点击事件
+const send_massage_to_python_check1 = () => {
+
+  if (html_input_textarea.value.slice(0, 4) == "http") {
+    $('#cloudWordSvg').remove()
+    ElMessage({
+      message: `正在爬取${html_input_textarea.value}`,
+      type: 'success',
+    })
+    get_html_word_cloud(`?scrapyUrl=${html_input_textarea.value}`)
+  }
+  else {
+    ElMessage({
+      message: `输入的不是一个链接,这里只能输入链接哦!`,
+      type: 'error',
+    })
+  }
+}
+const send_massage_to_python_check2 = () => { //确认选择的按钮的点击事件
   python_alert4_show.value = true
   send_massage_to_python_message1.value = `当前背景图片：${python_background_img_list[python_selected_background_img.value].name}`
   send_massage_to_python_message2.value = `当前字体样式：${python_background_font_list[python_selected_background_font.value].name}`
@@ -158,22 +186,43 @@ const switch_background = () => {
     })
   }
 }
-//生命周期函数
-onMounted(() => {
-  Axios.get(get_jieba_cut_word_List_api).then((response) => {
-    let jieba_cut_word_List = response.data
+
+const get_html_word_cloud = (key) => {
+  $("#loader").fadeIn(300);
+  $(".mask").fadeIn(300)
+  Axios.get(get_jieba_cut_word_List_api + key).then((response) => {
+    let title = response.data.title
+    let jieba_cut_word_List = response.data.count
+
+    console.log(jieba_cut_word_List)
+    if (title != "isnone") {
+      ratios = (100 / jieba_cut_word_List[1].size)
+      changeUrl.value = html_input_textarea.value
+      changeText.value = title
+    }
     layout
       .size([1000, 540])
       .words(jieba_cut_word_List.map(item => {
-        return { text: item.text, size: item.size * 1.8 }
+        if (item.size * ratios < 15) {
+          return { text: item.text, size: 15 }
+        }
+        else {
+          return { text: item.text, size: item.size * ratios }
+        }
       }))
       .padding(5)
       .rotate(() => ~~(Math.random() * 3) * 30)
-      .font("Impact")
+      .font("impact")
       .fontSize((item) => item.size)
       .on("end", draw)
     layout.start()
+    $("#loader").fadeOut(300);
+    $(".mask").fadeOut(300)
   })
+}
+//生命周期函数
+onMounted(() => {
+  get_html_word_cloud("")
 })
 
 </script>
@@ -182,9 +231,13 @@ onMounted(() => {
   <div>
     <header-box v-show="!proxy.$wordCloudPython.show" section_class="tile color transparent-black">
       <template v-slot:title>
-        <h1><a href="http://www.93.gov.cn/bsjs-ldcy-zxfzx-cbfzx-wdjh/768551.html" target="_blank"><strong>全国人大十三届五次全会精神文稿</strong></a>词云图</h1>
+        <h1><a :href="changeUrl" target="_blank"><strong>{{changeText}}</strong></a>词云图</h1>
       </template>
       <template v-slot:content>
+        <el-input style="width:1200px;margin:20px" v-model="html_input_textarea" :autosize="{ minRows: 3, maxRows: 999 }" type="textarea" placeholder="输入任意网站的任意一篇文章的链接,链接必须以http或https开头,爬取题目和内容进行词云展示" />
+        <div style="display:flex;justify-content:flex-end;margin:10px 60px">
+          <el-button type="success" size="large" :icon="Check" circle @click="send_massage_to_python_check1" />
+        </div>
         <div ref="d3_svg_element"></div>
       </template>
     </header-box>
@@ -193,12 +246,12 @@ onMounted(() => {
         <h1>基于python的<a href="http://amueller.github.io/word_cloud/references.html" target="_blank"><strong>wordCloud</strong></a>的词云图</h1>
       </template>
       <template v-slot:content>
-        <el-input style="width:1200px;margin:20px" v-model="python_input_textarea" :autosize="{ minRows: 3, maxRows: 999 }" type="textarea" placeholder="请输入你想进行词云生成的一段文字文字（建议400字以上）,可以点击云生成透明的背景，点完之后图标会变透明，但是它还在编辑字体样式旁边" />
+        <el-input style="width:1200px;margin:20px" v-model="python_input_textarea" :autosize="{ minRows: 3, maxRows: 999 }" type="textarea" placeholder="请输入你想进行词云生成的一段文字文字（建议400字以上）,可以点击云生成透明的背景,链接请以http开头" />
         <div style="display:flex;justify-content:flex-end;margin:0px 30px">
           <el-button :color="python_background_color" size="large" :icon="MostlyCloudy" circle @click="switch_background" />
           <el-button type="primary" size="large" :icon="EditPen" circle @click="python_alert3_show = true" />
           <el-button type="primary" size="large" :icon="PictureFilled" circle @click="python_alert2_show = true" />
-          <el-button type="success" size="large" :icon="Check" circle @click="send_massage_to_python_check" />
+          <el-button type="success" size="large" :icon="Check" circle @click="send_massage_to_python_check2" />
         </div>
         <img v-show="!image_is_null" ref="python_image_element" style="width:1200px;height:auto;margin:20px" src="" />
         <el-empty v-show="image_is_null" description="快快输入文字测试一下吧~" />

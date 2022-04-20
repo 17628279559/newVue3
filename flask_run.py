@@ -7,6 +7,7 @@ import re
 from Getwordcloud import mywordcloud, myjieba
 from getCovie import mygetcovie
 from getCloudMusic import getCloudMusic
+from getHtmlContent import myGetHtmlContent
 from getSimpleDFA import normaltype_to_NFA_to_DFA_to_simpleDFA
 
 
@@ -29,19 +30,22 @@ def getcovie():
 
 @app.route('/getwords', methods=['GET'])
 def getwords():
-    result = list(np.load("./result.npy", allow_pickle=True))
-    return jsonify(result)
-
-
-@app.route('/getjiebacut', methods=['GET'])
-def getjiebacut():
-    text = request.args.get('text')
+    scrapyUrl = ""
+    num = 1
     try:
-        num = request.args.get('num')
+        scrapyUrl = request.args.get('scrapyUrl')
     except:
-        num = 5
-    result = myjieba(text, num)
-    return jsonify(result)
+        pass
+    if not scrapyUrl:
+        result = list(np.load("./result.npy", allow_pickle=True))
+        return jsonify({'title': 'isnone', 'count': result})
+    else:
+        data = myGetHtmlContent(scrapyUrl)
+        word_counts = myjieba(data['text'])
+        result = [{'text': item, 'size': word_counts[item]}
+                  for item in word_counts if word_counts[item] > num]
+        result = sorted(result, key=lambda item: item['size'], reverse=True)
+        return jsonify({'title': data['title'], 'count': result})
 
 
 @app.route('/getpythonwords', methods=['POST'])
@@ -56,6 +60,8 @@ def getpythonwords():
         mode = "RGBA"
         background_color = "rgba(0,0,0,0)"
 
+    if text[:4] == "http":
+        text = myGetHtmlContent(text)['text']
     result = mywordcloud(text, mode, background_color,
                          background_img, font_style)
     return result
@@ -67,6 +73,7 @@ def getDFA():
     allwords = ['(', ')', '|', '*']
     abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g',
            'h', 'i', 'j', 'k', 'l', 'm', 'n']
+    wrongWords = ['()', '(|', '|)', '**', '(*', '||', '|*']
     stack = 0
     wordsnum = False
     if len(normaltype) == 0:
@@ -80,7 +87,10 @@ def getDFA():
             stack -= 1
         if word in abc:
             wordsnum = True
-    if re.search('\(\)', normaltype) or re.search('\*\*', normaltype) or not wordsnum:
+    for i in wrongWords:
+        if i in normaltype:
+            return {'name': 'extra words', 'wrong': '无意义表达式'}
+    if not wordsnum:
         return {'name': 'extra words', 'wrong': '无意义表达式'}
     if stack != 0:
         return {'name': 'extra words', 'wrong': '括号不匹配'}

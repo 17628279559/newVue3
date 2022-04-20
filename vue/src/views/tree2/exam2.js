@@ -8,7 +8,7 @@ const exam2 = (p5) => {
         slider_branchProb,
         slider_rotRand,
         slider_leafProb
-    let input_seed, size, maxLevel, rot, lenRand, branchProb, rotRand, leafProb
+    let size, maxLevel, rot, lenRand, branchProb, rotRand, leafProb
     let prog = 1,
         growing = false,
         mutating = false,

@@ -26,7 +26,8 @@ const page_list = {
   page_1_2: '/tree3',
   page_2_0: '/his',
   page_3_0: '/pie',
-  page_4_0: '/wordCloud'
+  page_4_0: '/wordCloud',
+  page_5_0: '/normaltype'
 }
 const change_example = (ind1, ind2 = 0) => {
   component_name.value = ind1
@@ -67,6 +68,13 @@ const sidebar_list = [
     class: 'fa-cloud',
     dropdown: false,
     name: '全国人大十三届五次全会词云图',
+    news: 0
+  },
+  {
+    id: 5,
+    class: 'fa-circle-o',
+    dropdown: false,
+    name: '正规式->NFA->DFA->最简DFA',
     news: 0
   }
 ]
@@ -280,8 +288,6 @@ const sidebar_list_setting = [
 </template>
 
 <style>
-@import './assets/font/font.css';
-
 a {
   color: #fff;
 }

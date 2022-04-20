@@ -6,6 +6,8 @@ import os
 from copy import deepcopy
 os.environ["PATH"] += os.pathsep + r'C:/Program Files/Graphviz/bin/'
 
+allnodes = []
+
 
 class simpleDFAnode(object):
     num = 0
@@ -19,6 +21,7 @@ class simpleDFAnode(object):
         self.needchaifen = True
         self.is_terminator = False
         self.is_beginnode = False
+        allnodes.append(self)
 
 
 class DFAnode(object):
@@ -31,25 +34,29 @@ class DFAnode(object):
         self.nextnode = []
         self.is_terminator = False
         self.is_beginnode = False
+        allnodes.append(self)
 
 
-class node(object):
+class Node(object):
     num = 0
 
     def __init__(self, nextnode=[], is_beginnode=False, is_terminator=False):
-        self.name = node.num
-        node.num += 1
+        self.name = Node.num
+        Node.num += 1
         self.nextnode = nextnode
         self.is_terminator = is_terminator
         self.is_beginnode = is_beginnode
+        allnodes.append(self)
 
 
 class DFA(object):
-    def __init__(self, S=[], alphabet=[], S0=[], Z=[]):
-        self.S = S
-        self.alphabet = alphabet
-        self.S0 = S0
-        self.Z = Z
+
+    def __init__(self):
+        self.S = []
+        self.alphabet = []
+        self.S0 = []
+        self.Z = []
+        allnodes.append(self)
 
     def NFA_transform_DFA_1(self, nfa):
         start_set = []
@@ -128,11 +135,12 @@ class DFA(object):
 class NFA(object):
     operator = ['(', ')', '|', '*', '+']
 
-    def __init__(self, S=[], alphabet=[], S0=[], Z=[]):
-        self.S = S
-        self.alphabet = alphabet
-        self.S0 = S0
-        self.Z = Z
+    def __init__(self):
+        self.S = []
+        self.alphabet = []
+        self.S0 = []
+        self.Z = []
+        allnodes.append(self)
 
     def normaltype_transform_NFA_1(self, NT):
         str = []
@@ -151,8 +159,8 @@ class NFA(object):
                 return i
 
     def normaltype_transform_NFA_2(self, NT):
-        b = node([], [])
-        a = node([], [])
+        b = Node([], [])
+        a = Node([], [])
 
         self.S.append(a)
         self.S.append(b)
@@ -250,8 +258,8 @@ class NFA(object):
         return c, d
 
     def normaltype_transform_NFA_4(self, NT):
-        e = node([], [])
-        f = node(nextnode=[[e.name, NT[0]]])
+        e = Node([], [])
+        f = Node(nextnode=[[e.name, NT[0]]])
         self.S.append(f)
         self.S.append(e)
 
@@ -421,6 +429,9 @@ def normaltype_to_NFA_to_DFA_to_simpleDFA(normaltype):
     pic_name = str(time.time())+'_dfa'
     graph.render('vue/pythonImg/'+pic_name, view=False)
     result = {'name': "/pythonImg/"+pic_name+'.png'}
+    simpleDFAnode.num = 0
+    DFAnode.num = 0
+    Node.num = 0
     return result
 
 
