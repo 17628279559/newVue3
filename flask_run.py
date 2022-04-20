@@ -5,7 +5,7 @@ from werkzeug.serving import make_server
 import numpy as np
 import re
 from Getwordcloud import mywordcloud, myjieba
-from getCovie import getcovie
+from getCovie import mygetcovie
 from getCloudMusic import getCloudMusic
 from getSimpleDFA import normaltype_to_NFA_to_DFA_to_simpleDFA
 
@@ -23,7 +23,7 @@ def getcloud():
 
 @app.route('/getcovie', methods=['GET'])
 def getcovie():
-    data = getcovie()
+    data = mygetcovie()
     return jsonify(data)
 
 

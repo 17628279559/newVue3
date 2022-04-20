@@ -1,7 +1,24 @@
-# Vue 3 + Vite
+# 2022 年春学期 数据可视化作业展示网站
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+本站采用 vue3 加 flask 搭建
+[线上地址](https://datavisualization.zwt666.top/)
 
-## Recommended IDE Setup
+[本站详细介绍](https://zwt666.top/index.php/archives/64/)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+### 数据可视化作品包括:
+
+###### 三棵用`p5.js`制作的分析树
+
+###### 网易云飙升榜单实时爬取以及直方图展示(`d3.js`)
+
+###### 中国各地疫情每日新增实时爬取以及饼图和直方图展示(`d3.js`)
+
+###### 全国人大十三届五次全会精神文稿词云图(`d3.layout.cloud.js`)
+
+###### 以及基于 python`wordCloud`后端制作词云图功能(输入一段话，结巴分词然后生成词云图返回给前端)
+
+和上面的词云图在一个栏目，点击切换 python 词云图切换
+
+###### 编译原理正规式转 NFA 转 DFA 转最简 DFA(最硬核的作品)
+
+大致于 2021 年 12 月份完成正规式转 NFA 转 DFA 部分，后补齐 DFA 最小化并挂到此站展示

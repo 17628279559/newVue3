@@ -8,7 +8,7 @@ header = {
 }
 
 
-def getcovie():
+def mygetcovie():
     response = requests.get(url, headers=header)
     data = json.loads(response.text)
 

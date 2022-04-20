@@ -248,7 +248,7 @@ const sidebar_list_setting = [
               <!-- 左边侧边栏按钮 -->
               <li class="settings" id="general-settings">
                 <a href="#" class="sidebar-toggle underline" data-toggle="#general-settings">设置 <i class="fa fa-angle-up"></i></a>
-                <template v-for="(item, stindex) in sidebar_list_setting" :key="stindex">
+                <div v-for="(item, stindex) in sidebar_list_setting" :key="stindex">
                   <div v-if="component_name === item.fatherid" class="form-group">
                     <label class="col-xs-8 control-label">{{ item.name }}</label>
                     <div class="col-xs-4 control-label">
@@ -261,7 +261,7 @@ const sidebar_list_setting = [
                       </div>
                     </div>
                   </div>
-                </template>
+                </div>
               </li>
             </ul>
           </div>
