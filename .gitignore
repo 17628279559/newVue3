@@ -7,8 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-src/assets/css/*
-src/assets/js/*
+css/*
+js/*
 
 node_modules
 dist
