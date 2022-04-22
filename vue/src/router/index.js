@@ -40,6 +40,11 @@ const routes = [
     path: '/normaltype',
     name: 'normaltype',
     component: () => import('../views/normaltype/normaltype.vue')
+  },
+  {
+    path: '/force',
+    name: 'force',
+    component: () => import('../views/force/force.vue')
   }
 ]
 

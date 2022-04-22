@@ -25,11 +25,13 @@ const send_massage_to_python_and_get_img_url = () => {  //提交信息到服务�
 
   Axios.get(getDFAapi + `?normaltype=${python_input_textarea.value}`, data).then((response) => {
     let name = response.data.name
+    python_alert_show.value = false
     if (name == "extra words") {
       ElMessage({
         message: response.data.wrong,
         type: 'error',
       })
+
     }
     else {
       $(python_image_element.value).attr('src', name)
@@ -39,8 +41,6 @@ const send_massage_to_python_and_get_img_url = () => {  //提交信息到服务�
     $(".mask").fadeOut(300)
   })
 }
-
-
 const send_massage_to_python_check = () => { //确认选择的按钮的点击事件
   python_alert_show.value = true
   send_massage_to_python_message.value = `您输入的正规式为:${python_input_textarea.value}`

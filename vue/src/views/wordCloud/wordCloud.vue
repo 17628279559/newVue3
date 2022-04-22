@@ -76,6 +76,7 @@ const draw = (words) => {  //画词云图函数
     .text(item => item.text)
     .on("mouseover", (index, item) => {
       d3.select(index.target)
+        .text(item => item.size)
         .transition()
         .duration(100)
         .style('opacity', 0.7)
@@ -83,6 +84,7 @@ const draw = (words) => {  //画词云图函数
     })
     .on("mouseout", (index, item) => {
       d3.select(index.target)
+        .text(item => item.text)
         .transition()
         .duration(100)
         .style('opacity', 1)
