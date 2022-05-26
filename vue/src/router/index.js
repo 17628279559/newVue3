@@ -45,6 +45,11 @@ const routes = [
     path: '/force',
     name: 'force',
     component: () => import('../views/force/force.vue')
+  },
+  {
+    path: '/tidy',
+    name: 'tidy',
+    component: () => import('../views/tidy/tidy.vue')
   }
 ]
 

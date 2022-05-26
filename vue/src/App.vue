@@ -29,6 +29,7 @@ const page_list = {
   page_4_0: '/wordCloud',
   page_5_0: '/normaltype',
   page_6_0: '/force',
+  page_7_0: '/tidy'
 }
 const change_example = (ind1, ind2 = 0) => {
   component_name.value = ind1
@@ -40,7 +41,7 @@ const sidebar_list = [
   { id: 0, class: 'fa-home', dropdown: false, name: '首页', news: 1 },
   {
     id: 1,
-    class: 'fa-leaf',
+    class: 'fa-tree',
     dropdown: true,
     name: '分形树',
     subitems: [
@@ -83,6 +84,13 @@ const sidebar_list = [
     class: 'fa-share-alt',
     dropdown: false,
     name: '力导向图',
+    news: 0
+  },
+  {
+    id: 7,
+    class: 'fa-circle-o-notch',
+    dropdown: false,
+    name: '全球教育',
     news: 0
   }
 ]
@@ -138,7 +146,7 @@ const sidebar_list_setting = [
   {
     id: 4,
     fatherid: 6,
-    name: '切换力导向图',
+    name: '切换透明背景',
     func: () => {
       if ($(`#switch-4-6`)[0]['checked']) {
         proxy.$force.value = 0

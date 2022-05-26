@@ -1,0 +1,365 @@
+{
+  "name": "全球教育",
+  "value": "",
+  "id": 0,
+  "children": [
+    {
+      "name": "识字",
+      "value": "#literacy",
+      "id": 1,
+      "children": [
+        {
+          "name": "2020年识字率",
+          "value": "#literacy",
+          "id": 2,
+          "children": [
+            {
+              "name": "成人识字率",
+              "value": "#literacy",
+              "id": 3,
+              "children": [
+                {
+                  "name": "成年男性识字率",
+                  "value": "#literacy",
+                  "id": 4,
+                  "children": []
+                },
+                {
+                  "name": "成年女性识字率",
+                  "value": "#literacy",
+                  "id": 5,
+                  "children": []
+                },
+                {
+                  "name": "青年男性识字率",
+                  "value": "#literacy",
+                  "id": 6,
+                  "children": []
+                },
+                {
+                  "name": "青年女性识字率",
+                  "value": "#literacy",
+                  "id": 7,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "青年识字率",
+              "value": "#literacy",
+              "id": 8,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "识字率的历史变化",
+          "value": "#literacy",
+          "id": 9,
+          "children": [
+            {
+              "name": "1475-2015",
+              "value": "#literacy",
+              "id": 10,
+              "children": []
+            },
+            {
+              "name": "1800-2020",
+              "value": "#literacy",
+              "id": 11,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "不同国家的识字情况",
+          "value": "#literacy",
+          "id": 12,
+          "children": [
+            {
+              "name": "欧洲",
+              "value": "#literacy",
+              "id": 13,
+              "children": []
+            },
+            {
+              "name": "美国",
+              "value": "#literacy",
+              "id": 14,
+              "children": []
+            },
+            {
+              "name": "北非",
+              "value": "#literacy",
+              "id": 15,
+              "children": []
+            },
+            {
+              "name": "中东",
+              "value": "#literacy",
+              "id": 16,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "入学率和出勤率",
+      "value": "#school-enrollment-and-attendance",
+      "id": 17,
+      "children": [
+        {
+          "name": "小学入学率",
+          "value": "#school-enrollment-and-attendance",
+          "id": 18,
+          "children": [
+            {
+              "name": "发展中国家",
+              "value": "#school-enrollment-and-attendance",
+              "id": 19,
+              "children": [
+                {
+                  "name": "撒哈拉以南非洲地区",
+                  "value": "#school-enrollment-and-attendance",
+                  "id": 20,
+                  "children": []
+                },
+                {
+                  "name": "在尼日尔",
+                  "value": "#school-enrollment-and-attendance",
+                  "id": 21,
+                  "children": []
+                },
+                {
+                  "name": "乍得",
+                  "value": "#school-enrollment-and-attendance",
+                  "id": 22,
+                  "children": []
+                },
+                {
+                  "name": "利比里亚",
+                  "value": "#school-enrollment-and-attendance",
+                  "id": 23,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "发达国家",
+              "value": "#school-enrollment-and-attendance",
+              "id": 24,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "出勤率",
+          "value": "#school-enrollment-and-attendance",
+          "id": 25,
+          "children": [
+            {
+              "name": "发展中国家",
+              "value": "#school-enrollment-and-attendance",
+              "id": 26,
+              "children": []
+            },
+            {
+              "name": "发达国家",
+              "value": "#school-enrollment-and-attendance",
+              "id": 27,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "失学儿童",
+      "value": "#out-of-school-children",
+      "id": 28,
+      "children": [
+        {
+          "name": "性别",
+          "value": "#out-of-school-children",
+          "id": 29,
+          "children": [
+            {
+              "name": "男",
+              "value": "#out-of-school-children",
+              "id": 30,
+              "children": []
+            },
+            {
+              "name": "女",
+              "value": "#out-of-school-children",
+              "id": 31,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "国家",
+          "value": "#out-of-school-children",
+          "id": 32,
+          "children": []
+        },
+        {
+          "name": "年龄",
+          "value": "#out-of-school-children",
+          "id": 33,
+          "children": [
+            {
+              "name": "小学",
+              "value": "#out-of-school-children",
+              "id": 34,
+              "children": []
+            },
+            {
+              "name": "初中",
+              "value": "#out-of-school-children",
+              "id": 35,
+              "children": []
+            },
+            {
+              "name": "高中",
+              "value": "#out-of-school-children",
+              "id": 36,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "上学年数",
+      "value": "#years-of-schooling",
+      "id": 37,
+      "children": [
+        {
+          "name": "国家",
+          "value": "#years-of-schooling",
+          "id": 38,
+          "children": [
+            {
+              "name": "年份",
+              "value": "#years-of-schooling",
+              "id": 39,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "学习成果",
+      "value": "#learning-outcomes",
+      "id": 40,
+      "children": [
+        {
+          "name": "国家",
+          "value": "#learning-outcomes",
+          "id": 41,
+          "children": [
+            {
+              "name": "发达经济体",
+              "value": "#learning-outcomes",
+              "id": 42,
+              "children": [
+                {
+                  "name": "绝对变化",
+                  "value": "#learning-outcomes",
+                  "id": 43,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "亚洲和太平洋",
+              "value": "#learning-outcomes",
+              "id": 44,
+              "children": [
+                {
+                  "name": "相对变化",
+                  "value": "#learning-outcomes",
+                  "id": 45,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "东欧洲",
+              "value": "#learning-outcomes",
+              "id": 46,
+              "children": [
+                {
+                  "name": "平均受教育年限",
+                  "value": "#learning-outcomes",
+                  "id": 47,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "拉丁美洲和加勒比",
+              "value": "#learning-outcomes",
+              "id": 48,
+              "children": [
+                {
+                  "name": "男",
+                  "value": "#learning-outcomes",
+                  "id": 49,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "中东和北非",
+              "value": "#learning-outcomes",
+              "id": 50,
+              "children": [
+                {
+                  "name": "女",
+                  "value": "#learning-outcomes",
+                  "id": 51,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "撒哈拉以南非洲",
+              "value": "#learning-outcomes",
+              "id": 52,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "各国学习成果比较",
+          "value": "#learning-outcomes",
+          "id": 53,
+          "children": [
+            {
+              "name": "平均学习成果分数",
+              "value": "#learning-outcomes",
+              "id": 54,
+              "children": []
+            },
+            {
+              "name": "人均国内生产总值",
+              "value": "#learning-outcomes",
+              "id": 55,
+              "children": []
+            },
+            {
+              "name": "人口",
+              "value": "#learning-outcomes",
+              "id": 56,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
